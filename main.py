@@ -5,6 +5,8 @@
 
 import string
 from collections import Counter
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords   #this has all stopwords in many language
 import matplotlib.pyplot as plt
 
 #read text
@@ -28,27 +30,35 @@ clean_text = lower_case.translate(str.maketrans('','',string.punctuation))
 #2 - tokenization
 #how to break up the sentence to words
 
-tokenized_words = clean_text.split()
+#tokenized_words = clean_text.split()
+#split() takes lot of time to analyze
+#split() can be done using nltk
+tokenized_words = word_tokenize(clean_text,'english')
 
 #3 - stop words
 #words that does not add any meaning to the sentence
 
-stop_words = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself",
-              "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
-              "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these",
-              "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do",
-              "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while",
-              "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before",
-              "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again",
-              "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each",
-              "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than",
-              "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"]
+#instead of using stop_words, we can use nltk.corpus (its a dataset that nltk has)
+#from that import stopwords (a list of stop_words inside of corpus dataset)
+
+# stop_words = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself",
+#               "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
+#               "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these",
+#               "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do",
+#               "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while",
+#               "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before",
+#               "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again",
+#               "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each",
+#               "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than",
+#               "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"]
+
+
 
 #4 - getting word list which not in stop_words list
 final_words = []
 
 for word in tokenized_words:
-    if word not in stop_words:
+    if word not in stopwords.words('english'):
         final_words.append(word)
 
 
